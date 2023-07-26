@@ -1,38 +1,38 @@
 import { Category } from 'src/category/entities/category.entity'
 import { Transaction } from 'src/transaction/entities/transaction.entity'
 import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
+	Column,
+	CreateDateColumn,
+	Entity,
+	OneToMany,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn,
 } from 'typeorm'
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number
+	@PrimaryGeneratedColumn()
+	id: number
 
-  @Column()
-  email: string
+	@Column()
+	email: string
 
-  @Column()
-  password: string
+	@Column()
+	password: string
 
-  @OneToMany(() => Category, (category) => category.user, {
-    onDelete: 'CASCADE',
-  })
-  categories: Category[]
+	@OneToMany(() => Category, (category) => category.user, {
+		onDelete: 'CASCADE',
+	})
+	categories: Category[]
 
-  @OneToMany(() => Transaction, (transactions) => transactions.user, {
-    onDelete: 'CASCADE',
-  })
-  transactions: Transaction[]
+	@OneToMany(() => Transaction, (transactions) => transactions.user, {
+		onDelete: 'CASCADE',
+	})
+	transactions: Transaction[]
 
-  @CreateDateColumn()
-  creasteAt: Date
+	@CreateDateColumn()
+	creasteAt: Date
 
-  @UpdateDateColumn()
-  updateAt: Date
+	@UpdateDateColumn()
+	updateAt: Date
 }

@@ -29,6 +29,7 @@ export class CategoryService {
 			title: createCategoryDto.title,
 			user: { id },
 		}
+		console.log(newCategory)
 
 		return await this.categoryRepository.save(newCategory)
 	}
