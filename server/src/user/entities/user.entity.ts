@@ -31,7 +31,7 @@ export class User {
 	transactions: Transaction[]
 
 	@CreateDateColumn()
-	creasteAt: Date
+	createdAt: Date
 
 	@UpdateDateColumn()
 	updateAt: Date

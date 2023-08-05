@@ -35,8 +35,11 @@ export class TransactionService {
 			where: {
 				user: { id },
 			},
+			relations: {
+				category: true
+			},
 			order: {
-				creasteAt: 'DESC',
+				createdAt: 'DESC',
 			},
 		})
 
@@ -91,7 +94,7 @@ export class TransactionService {
 				},
 			},
 			order: {
-				creasteAt: 'DESC',
+				createdAt: 'DESC',
 			},
 			take: limit,
 			skip: (page - 1) * limit,

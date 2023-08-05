@@ -1,8 +1,13 @@
-import  { FC } from 'react'
+import  { FC, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
-import { Form } from 'react-router-dom'
+import { Form, useLoaderData } from 'react-router-dom'
+import { IResponseTransactionLoader } from '../types/types'
+import CategoryModal from './CategoryModal'
 
 const TransactionForm: FC = () => {
+    const {categories} = useLoaderData() as IResponseTransactionLoader
+    const [visibleModal, setVisibleModal] = useState(false)
+    
   return <div className='rounded-md bg-slate-800 p-4'>
     <Form className='grid gap-2' method='post' action='/transactions'>
 
@@ -17,18 +22,23 @@ const TransactionForm: FC = () => {
         </label>
         
         {/* select */}
-        <label htmlFor="category" className='grid'>
-            <span className='mb-1'>Category</span>
-            <select name="category" required className='input' >
-                <option value="1">Salary</option>
-                <option value="2">Gift</option>
-            </select>
-        </label>
+        {categories.length ? (
+            <label htmlFor="category" className='grid'>
+                <span className='mb-1'>Category</span>
+                <select name="category" required className='input' >
+                    {categories.map((ctg, idx) => (
+                        <option key={idx} value={ctg.id}>{ctg.title}</option>
+                    ))}
+                </select>
+            </label>
+        ) : (
+            <h1 className='mt-1 text-red-300'>To continue a category create first</h1>
+        )}
         
         {/* add category */}
         <button 
-        // onClick={() => setVisibleModal(true)}
-         className='max-w-fit mt-2 flex items-center gap-2 text-white/50 hover:text-white'>
+        onClick={() => setVisibleModal(true)}
+         className='max-w-fit  flex items-center gap-2 text-white/50 hover:text-white'>
             <FaPlus />
             <span>Manage categories</span>
         </button>
@@ -50,6 +60,14 @@ const TransactionForm: FC = () => {
         {/* submit btn */}
         <button type="submit" className='btn btn-green mt-2 max-w-fit'>Submit</button>
     </Form>
+
+    {/* add category modal */}
+    {
+        visibleModal && (
+            <CategoryModal type='post' setVisibleModal={setVisibleModal} />
+        )
+    }
+
   </div>
 }
 

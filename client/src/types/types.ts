@@ -22,10 +22,27 @@ export interface IResponseUserData {
 	user: IResponseUser
 }
 
+export interface ITransaction {
+	amount: number
+	createdAt: string
+	updatedAt: string
+	type: string
+	id: number
+	title: string
+	category: ICategory
+}
+
 export interface ICategory {
 	title: string
 	id: number
 	createdAt: string
 	updatedAt: string
-	transactions: []
+	transactions?: []
+}
+
+export interface IResponseTransactionLoader {
+	categories: ICategory[]
+	transactions: ITransaction[]
+	totalIncome: number
+	totalExpense: number
 }
